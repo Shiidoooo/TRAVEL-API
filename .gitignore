@@ -1,0 +1,9 @@
+# Sensitive config
+.env
+
+# Security documents (contain internal vulnerability details)
+SECURITY_AUDIT.md
+solution.md
+
+# Database dumps (large files, contain schema/data)
+*.sql

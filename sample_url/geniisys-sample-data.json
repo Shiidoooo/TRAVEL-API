@@ -1,0 +1,80 @@
+{
+    "noOfPersons": 1,
+    "travelDestination": "Tokyo, Japan",
+    "policy": {
+        "lineCd": "AH",
+        "sublineCd": "PFTF",
+        "issCd": "HO",
+        "inceptDate": "06/01/2026",
+        "expiryDate": "06/01/2027",
+        "assdNo": 60387,
+        "assdAddress": "123 Main Street, Makati City",
+        "refPolNo": "POL-2026-0001",
+        "itemTitle": "Travel Care Plan Plus",
+        "currency": "PHP",
+        "currencyRt": 1,
+        "paytTerm": "COD",
+        "dueDate": "06/02/2026",
+        "refInvNo": "INV-2026-0001",
+        "intmNo": 79,
+        "userId": "MAC",
+        "regionCd": 13,
+        "peril": [
+            {
+                "perilCd": 134,
+                "perilRate": 0.050000000,
+                "perilTsi": 500000.00,
+                "perilPrem": 250.00
+            }
+        ],
+        "invTax": [
+            {
+                "taxCd": 2,
+                "taxAmt": 30.00
+            }
+        ]
+    },
+    "accidentItem": {
+        "dateOfBirth": "12/25/1990",
+        "age": 35,
+        "gender": "M",
+        "civilStatus": "S",
+        "height": "175 cm",
+        "weight": "70 kg",
+        "passportNo": "P1234567A"
+    },
+    "itemBeneficiary": [
+        {
+            "beneficiaryNo": 1,
+            "beneficiaryName": "Jane Doe"
+        }
+    ],
+    "groupedItems": [
+        {
+            "enrolleeNo": 1,
+            "enrolleeName": "John Doe Jr",
+            "gender": "M",
+            "positionCd": 101,
+            "civilStatus": "S",
+            "dateOfBirth": "01/15/2018",
+            "age": 8,
+            "controlTypeCd": 184,
+            "controlCd": "CTRL-001",
+            "remarks": "Dependent child",
+            "enrolleeCoverage": [
+                {
+                    "perilCd": 132,
+                    "perilRate": 1.1697123,
+                    "perilTsi": 250000.00,
+                    "perilPrem": 125.00
+                }
+            ],
+            "enrolleeBeneficiary": [
+                {
+                    "beneficiaryNo": 1,
+                    "beneficiaryName": "Jane Doe"
+                }
+            ]
+        }
+    ]
+}
