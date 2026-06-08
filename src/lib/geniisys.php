@@ -183,8 +183,17 @@ function syncGeniisysCustomer(
             return $result;
         }
 
+        // Log the raw API response for debugging when no ID is found
+        error_log('GeniiSys customer API returned no extractable ID. Response: ' . ($apiResult['body'] ?? 'empty'));
+
         $result['status'] = 'duplicate';
         $result['message'] = 'GeniiSys returned no new ID.';
+        // Include the API response so the caller can see what GeniiSys returned
+        if (is_array($apiResult['json'])) {
+            $result['api_response'] = $apiResult['json'];
+        } elseif (($apiResult['body'] ?? '') !== '') {
+            $result['api_response'] = substr($apiResult['body'], 0, 500);
+        }
         return $result;
     } catch (Throwable $e) {
         $result['status'] = 'failed';
@@ -414,8 +423,7 @@ function extractGeniisysCustomerId($payload): ?string
         return null;
     }
 
-    // Only trust explicit assdNo/assd_no fields — never use 'message' as a candidate
-    // to prevent accidental ID spoofing from error messages that look like numbers.
+    // Priority 1: Check explicit assdNo/assd_no fields first (most reliable)
     $candidates = [];
     if (isset($payload['assdNo'])) {
         $candidates[] = $payload['assdNo'];
@@ -439,6 +447,24 @@ function extractGeniisysCustomerId($payload): ?string
             continue;
         }
         return $value;
+    }
+
+    // Priority 2: GeniiSys returns the customer ID in the 'message' field
+    // for both new and existing customers. Only accept purely numeric values
+    // to prevent treating actual error messages as IDs.
+    $messageCandidates = [];
+    if (isset($payload['message'])) {
+        $messageCandidates[] = $payload['message'];
+    }
+    if (isset($payload['data']['message'])) {
+        $messageCandidates[] = $payload['data']['message'];
+    }
+
+    foreach ($messageCandidates as $value) {
+        $value = trim((string) $value);
+        if ($value !== '' && ctype_digit($value)) {
+            return $value;
+        }
     }
 
     return null;
